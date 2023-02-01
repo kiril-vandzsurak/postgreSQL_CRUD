@@ -36,7 +36,41 @@ cartRouter.get("/:cartId", async (req, res, next) => {
     if (cart) {
       res.send(cart);
     } else {
-      console.log("ERROR");
+      console.log("ERROR GET SINGLE");
+    }
+  } catch (error) {
+    next(error);
+  }
+});
+
+cartRouter.put("/:cartId", async (req, res, next) => {
+  try {
+    const [numberOfUpdatedRows, updatedRecords] = await CartModel.update(
+      req.body,
+      {
+        where: { id: req.params.cartId },
+        returning: true,
+      }
+    );
+    if (numberOfUpdatedRows === 1) {
+      res.send(updatedRecords[0]);
+    } else {
+      console.log("ERROR PUT");
+    }
+  } catch (error) {
+    next(error);
+  }
+});
+
+cartRouter.delete("/:cartId", async (req, res, next) => {
+  try {
+    const numberOfDeletedRows = await CartModel.destroy({
+      where: { id: req.params.cartId },
+    });
+    if (numberOfDeletedRows === 1) {
+      res.status(204).send();
+    } else {
+      console.log("ERROR DELETE");
     }
   } catch (error) {
     next(error);
