@@ -20,9 +20,24 @@ cartRouter.get("/", async (req, res, next) => {
     if (req.query.name) query.name = { [Op.iLike]: `${req.query.name}%` };
     const cart = await CartModel.findAll({
       where: { ...query },
-      attributes: ["name", "category", "description"],
+      attributes: ["name", "category", "description", "id"],
     });
     res.send(cart);
+  } catch (error) {
+    next(error);
+  }
+});
+
+cartRouter.get("/:cartId", async (req, res, next) => {
+  try {
+    const cart = await CartModel.findByPk(req.params.cartId, {
+      attributes: { exclude: ["createdAt", "updatedAt"] },
+    });
+    if (cart) {
+      res.send(cart);
+    } else {
+      console.log("ERROR");
+    }
   } catch (error) {
     next(error);
   }
