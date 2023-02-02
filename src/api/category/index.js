@@ -21,4 +21,18 @@ categoriesRouter.get("/", async (req, res, next) => {
   }
 });
 
+categoriesRouter.post("/bulk", async (req, res, next) => {
+  try {
+    const categories = await CategoriesModel.bulkCreate([
+      { name: "Smartphones" },
+      { name: "Laptops" },
+      { name: "Television" },
+      { name: "Drons" },
+    ]);
+    res.send(categories.map((c) => c.categoryId));
+  } catch (error) {
+    next(error);
+  }
+});
+
 export default categoriesRouter;

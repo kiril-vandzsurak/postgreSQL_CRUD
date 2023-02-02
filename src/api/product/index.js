@@ -14,7 +14,7 @@ productRouter.post("/", async (req, res, next) => {
         req.body.category.map((category) => {
           return {
             categoryId: category,
-            id,
+            productId,
           };
         })
       );
