@@ -7,19 +7,19 @@ const productRouter = express.Router();
 
 productRouter.post("/", async (req, res, next) => {
   try {
-    const { productId } = await ProductModel.create(req.body);
-
+    const { id } = await ProductModel.create(req.body);
+    console.log("IDDDD:::::::", id);
     if (req.body.category) {
       await ProductsCategoriesModel.bulkCreate(
         req.body.category.map((category) => {
           return {
             categoryId: category,
-            productId,
+            id,
           };
         })
-      ); // --> [{categoryId: "asdasd", blogId: "asdasdasdas"}]
+      );
     }
-    res.status(201).send({ id: productId });
+    res.status(201).send({ productId: id });
   } catch (error) {
     next(error);
   }
