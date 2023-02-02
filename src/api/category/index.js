@@ -12,4 +12,13 @@ categoriesRouter.post("/", async (req, res, next) => {
   }
 });
 
+categoriesRouter.get("/", async (req, res, next) => {
+  try {
+    const categories = await CategoriesModel.findAll();
+    res.send(categories);
+  } catch (error) {
+    next(error);
+  }
+});
+
 export default categoriesRouter;
