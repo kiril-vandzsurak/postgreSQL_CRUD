@@ -28,11 +28,11 @@ const ProductModel = sequelize.define("product", {
 });
 
 ProductModel.belongsToMany(CategoriesModel, {
-  through: BlogsCategoriesModel,
+  through: ProductsCategoriesModel,
   foreignKey: { name: "blogId", allowNull: false },
 });
 CategoriesModel.belongsToMany(ProductModel, {
-  through: BlogsCategoriesModel,
+  through: ProductsCategoriesModel,
   foreignKey: { name: "categoryId", allowNull: false },
 });
 
