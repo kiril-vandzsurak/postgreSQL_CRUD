@@ -38,7 +38,4 @@ CategoriesModel.belongsToMany(ProductModel, {
   foreignKey: { name: "categoryId", allowNull: false },
 });
 
-ProductModel.hasMany(ReviewsModel, { foreignKey: { allowNull: false } });
-ReviewsModel.belongsTo(ProductModel);
-
 export default ProductModel;

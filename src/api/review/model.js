@@ -1,5 +1,6 @@
 import { DataTypes } from "sequelize";
 import sequelize from "../../db.js";
+import ProductModel from "../product/model.js";
 
 const ReviewsModel = sequelize.define("review", {
   id: {
@@ -12,5 +13,8 @@ const ReviewsModel = sequelize.define("review", {
     allowNull: false,
   },
 });
+
+ProductModel.hasMany(ReviewsModel, { foreignKey: { allowNull: false } });
+ReviewsModel.belongsTo(ProductModel);
 
 export default ReviewsModel;
