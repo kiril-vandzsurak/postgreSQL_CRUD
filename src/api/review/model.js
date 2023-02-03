@@ -31,7 +31,6 @@ ProductModel.belongsToMany(CategoriesModel, {
   through: ProductsCategoriesModel,
   foreignKey: { name: "productId", allowNull: false },
 });
-
 CategoriesModel.belongsToMany(ProductModel, {
   through: ProductsCategoriesModel,
   foreignKey: { name: "categoryId", allowNull: false },
