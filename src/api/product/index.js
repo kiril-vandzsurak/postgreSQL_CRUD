@@ -41,4 +41,16 @@ productRouter.get("/", async (req, res, next) => {
   }
 });
 
+productRouter.put("/:productId/category", async (req, res, next) => {
+  try {
+    const { id } = await ProductsCategoriesModel.create({
+      productId: req.params.productId,
+      categoryId: req.body.categoryId,
+    });
+    res.status(201).send({ id });
+  } catch (error) {
+    next(error);
+  }
+});
+
 export default productRouter;
