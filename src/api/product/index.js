@@ -2,6 +2,7 @@ import express from "express";
 import ProductModel from "./model.js";
 import CategoriesModel from "../category/model.js";
 import ProductsCategoriesModel from "./productCategoryModel.js";
+import ReviewsModel from "../review/model.js";
 
 const productRouter = express.Router();
 
@@ -48,6 +49,21 @@ productRouter.put("/:productId/category", async (req, res, next) => {
       categoryId: req.body.categoryId,
     });
     res.status(201).send({ id });
+  } catch (error) {
+    next(error);
+  }
+});
+
+productRouter.get("/:productId/reviews", async (req, res, next) => {
+  try {
+    const product = await ProductModel.findByPk(req.params.productId, {
+      include: [
+        {
+          model: ReviewsModel,
+        },
+      ],
+    });
+    res.send(product);
   } catch (error) {
     next(error);
   }
